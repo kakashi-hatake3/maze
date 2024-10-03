@@ -1,10 +1,12 @@
-from src.field import Field
+# from field import Field
 
 
 class Cell:
-    def __init__(self, field: Field):
+    """Класс ячейки."""
+
+    def __init__(self, field: "Field", index: int):
         self.field = field
-        self.index: int = 0
+        self.index = index
         self.name: str = 'wall'
         self.road_quality: str = 'normal'
         self.is_visited: bool = False
@@ -22,6 +24,7 @@ class Cell:
                 self.external_side.append('left')
 
     def add_neighbors(self):
+        """Добавляет соседей ячейки."""
         available_sides = ['down', 'up', 'right', 'left']
         matrix = self.field.matrix
         width = self.field.width
@@ -38,7 +41,6 @@ class Cell:
                     self.neighbors.append(matrix[self.index + 1])
                 case 'left':
                     self.neighbors.append(matrix[self.index - 1])
-
 
     def __str__(self):
         match self.name:

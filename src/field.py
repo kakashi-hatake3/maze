@@ -1,11 +1,13 @@
-from src.cell import Cell
+from cell import Cell
 
 
 class Field:
+    """Класс-контейнер для всех ячеек на поле."""
+
     def __init__(self, width: int, height: int):
         self.width = width
         self.height = height
-        self.matrix = [Cell(self) for _ in range(width * height)]
+        self.matrix = [Cell(self, i) for i in range(width * height)]
 
     def __str__(self):
         result = ''
