@@ -7,6 +7,8 @@ class Cell:
     def __init__(self, field: "Field", index: int):
         self.field = field
         self.index = index
+        self.is_finish = False
+        self.is_start = False
         self.name: str = 'wall'
         self.road_quality: str = 'normal'
         self.is_visited: bool = False
@@ -54,3 +56,4 @@ class Cell:
                         return '^'
                     case 'normal':
                         return ' '
+
