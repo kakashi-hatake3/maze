@@ -3,8 +3,8 @@ import random
 from src.field import Field
 
 
-class KruskalField(Field):
-    """Класс для генерации поля с помощью алгоритма Kruskal."""
+class GrowingTreeField(Field):
+    """Класс для генерации поля с помощью алгоритма growing tree."""
 
     def __init__(self, width: int, height: int):
         super().__init__(width, height)
@@ -32,5 +32,10 @@ class KruskalField(Field):
                     neighbor_cell_neighbours_status = [c.is_visited for c in neighbour.neighbours]
                     if neighbor_cell_neighbours_status.count(True) < 2 and neighbour not in pretended_cells:
                         pretended_cells.append(neighbour)
-            current_cell = random.choice(pretended_cells)
-            pretended_cells.remove(current_cell)
+            for cell in pretended_cells:
+                neighbor_cell_neighbours_status = [c.is_visited for c in cell.neighbours]
+                if neighbor_cell_neighbours_status.count(True) >= 2:
+                    pretended_cells.remove(cell)
+            if len(pretended_cells) > 0:
+                current_cell = random.choice(pretended_cells)
+                pretended_cells.remove(current_cell)
