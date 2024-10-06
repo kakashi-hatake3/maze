@@ -15,6 +15,7 @@ def main() -> None:
     field.generate_field()
     print(field)
     print(f"Start: {field.start.index}")
+    print(f"Finish: {field.finish.index}")
 
 if __name__ == "__main__":
     main()
