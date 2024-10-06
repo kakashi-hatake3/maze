@@ -5,11 +5,13 @@ from src.stack import Stack
 
 
 class RecursiveBacktrackerField(Field):
+    """Класс для генерации поля с помощью алгоритма Recursive Backtracker."""
 
     def __init__(self, width: int, height: int):
         super().__init__(width, height)
 
     def generate_field(self):
+        """Генерирует поле согласно адаптированному алгоритму бэктрекинга."""
         stack = Stack()
         current_cell = self.start
         stack.push(current_cell)
