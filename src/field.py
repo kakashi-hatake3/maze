@@ -34,9 +34,13 @@ class Field:
                 external_cells.append(cell)
         cell_start = random.choice(external_cells)
         cell_start.is_start = True
+        cell_start.name = 'road'
+        cell_start.road_quality = 'start'
         external_cells.remove(cell_start)
         cell_finish = random.choice(external_cells)
         cell_finish.is_finish = True
+        cell_finish.name = 'road'
+        cell_finish.road_quality = 'finish'
         return cell_start, cell_finish
 
     def __str__(self):

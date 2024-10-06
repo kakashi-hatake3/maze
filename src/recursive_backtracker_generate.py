@@ -17,8 +17,9 @@ class RecursiveBacktrackerField(Field):
         stack.push(current_cell)
         while not stack.empty():
             current_cell.is_visited = True
-            current_cell.name = 'road'
-            current_cell.road_quality = random.choice(['good', 'bad', 'normal'])
+            if current_cell != self.start and current_cell != self.finish:
+                current_cell.name = 'road'
+                current_cell.road_quality = random.choice(['good', 'bad', 'normal'])
             pretended_neighbours = []
             for cell in current_cell.neighbours:
                 cell.cell_neighbours_status = [c.is_visited for c in cell.neighbours]
