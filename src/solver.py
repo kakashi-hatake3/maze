@@ -2,7 +2,7 @@ class Solver:
     """Класс для решения лабиринта."""
 
     def __init__(self, field: 'Field'):
-        self.maze = field
+        self.field = field
         self.start = field.start
         self.finish = field.finish
         self.finish.is_visited = True
