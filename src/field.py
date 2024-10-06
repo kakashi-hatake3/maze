@@ -10,16 +10,16 @@ class Field:
         self.width = width
         self.height = height
         self.matrix = [Cell(self, i) for i in range(width * height)]
-        self.start = self.set_start()
-        self.initialize_neighbors()
+        self.start, self.finish = self.set_start()
+        self.initialize_neighbours()
 
-    def initialize_neighbors(self):
+    def initialize_neighbours(self):
         """Инициализирует соседей для всех ячеек после создания матрицы."""
         for cell in self.matrix:
-            cell.add_neighbors()
-            cell.cell_neighbors_status = [c.is_visited for c in cell.neighbors]
+            cell.add_neighbours()
+            cell.cell_neighbours_status = [c.is_visited for c in cell.neighbours]
 
-    def set_start(self) -> Cell:
+    def set_start(self) -> tuple[Cell, Cell]:
         """Устанавливает старт."""
         external_cells = []
         for cell in self.matrix:
@@ -31,7 +31,10 @@ class Field:
                 external_cells.append(cell)
         cell_start = random.choice(external_cells)
         cell_start.is_start = True
-        return cell_start
+        external_cells.remove(cell_start)
+        cell_finish = random.choice(external_cells)
+        cell_finish.is_finish = True
+        return cell_start, cell_finish
 
     def __str__(self):
         result = ''
