@@ -6,4 +6,4 @@ def test_solver():
     field = RecursiveBacktrackerField(10, 6)
     field.generate_field()
     solver = Solver(field)
-    assert solver.finish.is_visited == True
+    assert solver.finish.is_visited
