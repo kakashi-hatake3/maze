@@ -5,7 +5,7 @@ from src.solver import Solver
 class WaveFrontSolver(Solver):
     """Класс для решения лабиринта с помощью алгоритма wall follower."""
 
-    def __init__(self, field: 'Field'):
+    def __init__(self, field: "Field"):
         super().__init__(field)
 
     def solve_field(self):
@@ -34,6 +34,8 @@ class WaveFrontSolver(Solver):
                 if not neighbour.is_visited or neighbour in visited:
                     continue
                 if neighbour not in distances:
-                    distances[neighbour] = distances[current_cell] + self.weights[neighbour.road_quality]
+                    distances[neighbour] = (
+                        distances[current_cell] + self.weights[neighbour.road_quality]
+                    )
                     queue.append(neighbour)
-        return float('inf')
+        return float("inf")

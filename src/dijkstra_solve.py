@@ -6,7 +6,7 @@ from src.solver import Solver
 class DijkstraSolver(Solver):
     """Класс для решения с помощью алгоритма Дейкстры."""
 
-    def __init__(self, field: 'Field'):
+    def __init__(self, field: "Field"):
         super().__init__(field)
 
     def solve_field(self) -> float:
@@ -34,8 +34,12 @@ class DijkstraSolver(Solver):
             for neighbour in current_cell.neighbours:
                 if not neighbour.is_visited or neighbour in visited:
                     continue
-                new_dist = distances[current_cell] + self.weights[neighbour.road_quality]
-                if new_dist < distances.get(neighbour, float('inf')):
+                new_dist = (
+                    distances[current_cell] + self.weights[neighbour.road_quality]
+                )
+                if new_dist < distances.get(neighbour, float("inf")):
                     distances[neighbour] = new_dist
-                    heapq.heappush(priority_queue, (new_dist, neighbour.index, neighbour))
-        return float('inf')
+                    heapq.heappush(
+                        priority_queue, (new_dist, neighbour.index, neighbour)
+                    )
+        return float("inf")
