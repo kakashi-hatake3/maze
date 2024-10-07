@@ -6,21 +6,20 @@ from src.field import Field
 class GrowingTreeField(Field):
     """Класс для генерации поля с помощью алгоритма growing tree."""
 
-    def __init__(self, width: int, height: int):
-        super().__init__(width, height)
-        # self.edges = []
-        # self.initialize_edges()
-        # print(self.edges[0][0].index, self.edges[0][1].index)
+    def __init__(self, width: int, height: int, *args):
+        super().__init__(width, height, *args)
 
-    # def initialize_edges(self):
-    #     """Инициализирует ребра."""
-    #     for cell in self.matrix:
-    #         for neighbour in cell.neighbours:
-    #             self.edges.append(tuple(sorted((cell, neighbour), key=lambda x: x.index)))
-    #     self.edges = list(set(self.edges))
+    def generate_field(self) -> None:
+        """
+        Генерирует поле согласно алгоритму growing tree.
 
-    def generate_field(self):
-        """Генерирует поле согласно алгоритму growing tree."""
+        Алгоритм growing tree выбирает случайного соседа, не посещенного до этого,
+        и добавляет его к списку ячеек, которые нужно посетить. Затем выбирается
+        случайная ячейка из списка и становится текущей. Если у соседей ячейки
+        больше двух непосещенных соседей, то она удаляется из списка.
+
+        :return: None
+        """
         pretended_cells = []
         current_cell = self.start
         while len(pretended_cells) > 0 or current_cell == self.start:
@@ -33,6 +32,7 @@ class GrowingTreeField(Field):
                     neighbor_cell_neighbours_status = [c.is_visited for c in neighbour.neighbours]
                     if neighbor_cell_neighbours_status.count(True) < 2 and neighbour not in pretended_cells:
                         pretended_cells.append(neighbour)
+            # Проверка на то, что у соседей больше двух непосещенных соседей
             for cell in pretended_cells:
                 neighbor_cell_neighbours_status = [c.is_visited for c in cell.neighbours]
                 if neighbor_cell_neighbours_status.count(True) >= 2:

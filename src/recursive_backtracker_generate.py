@@ -7,11 +7,20 @@ from src.stack import Stack
 class RecursiveBacktrackerField(Field):
     """Класс для генерации поля с помощью алгоритма Recursive Backtracker."""
 
-    def __init__(self, width: int, height: int):
-        super().__init__(width, height)
+    def __init__(self, width: int, height: int, *args):
+        super().__init__(width, height, *args)
 
-    def generate_field(self):
-        """Генерирует поле согласно адаптированному алгоритму бэктрекинга."""
+    def generate_field(self) -> None:
+        """
+        Генерирует поле согласно алгоритму Recursive Backtracker.
+
+        Recursive Backtracker - это алгоритм, который строит лабиринт методом DFS.
+        Он начинает с любого места в лабиринте и шаг за шагом строит лабиринт,
+        выбирая направление, в котором можно пройти. Я его изменил,
+        теперь он не вызывается рекурсивно, а выполняется в цикле
+
+        :return: None
+        """
         stack = Stack()
         current_cell = self.start
         stack.push(current_cell)
