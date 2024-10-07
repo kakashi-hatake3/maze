@@ -1,6 +1,6 @@
 import random
 
-from cell import Cell
+from src.cell import Cell
 
 
 class Field:
@@ -15,6 +15,9 @@ class Field:
         self.finish_coord = finish_coord
         self.width = width
         self.height = height
+        if self.width < 2 and self.height < 2:
+            print('Минимум может быть 2 ячейки')
+            exit()
         self.matrix = [Cell(self, i) for i in range(width * height)]
         self.start, self.finish = self.set_start_and_finish()
         self.initialize_neighbours()
