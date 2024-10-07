@@ -20,17 +20,42 @@ class Field:
         if self.width < 2 and self.height < 2:
             print("Минимум может быть 2 ячейки")
             exit()
-        self.matrix = [Cell(self, i) for i in range(width * height)]
+        self.matrix = [Cell(i) for i in range(width * height)]
         self.start, self.finish = self.set_start_and_finish()
         self.initialize_neighbours()
 
     def generate_field(self):
         pass
 
+    def add_neighbours(self, cell: Cell):
+        """Добавляет соседей ячейки."""
+        available_sides = ["down", "up", "right", "left"]
+        if cell.is_external:
+            if cell.index < self.width:
+                cell.external_side.append("up")
+            if cell.index >= self.width * (self.height - 1):
+                cell.external_side.append("down")
+            if cell.index % self.width == self.width - 1:
+                cell.external_side.append("right")
+            if cell.index % self.width == 0:
+                cell.external_side.append("left")
+            for i in cell.external_side:
+                available_sides.remove(i)
+        for side in available_sides:
+            match side:
+                case "down":
+                    cell.neighbours.append(self.matrix[cell.index + self.width])
+                case "up":
+                    cell.neighbours.append(self.matrix[cell.index - self.width])
+                case "right":
+                    cell.neighbours.append(self.matrix[cell.index + 1])
+                case "left":
+                    cell.neighbours.append(self.matrix[cell.index - 1])
+
     def initialize_neighbours(self):
         """Инициализирует соседей для всех ячеек после создания матрицы."""
         for cell in self.matrix:
-            cell.add_neighbours()
+            self.add_neighbours(cell)
             cell.cell_neighbours_status = [c.is_visited for c in cell.neighbours]
 
     def set_start_and_finish(self) -> tuple[Cell, Cell]:
