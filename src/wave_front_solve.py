@@ -1,5 +1,4 @@
 from collections import deque
-
 from src.solver import Solver
 
 
@@ -10,32 +9,31 @@ class WaveFrontSolver(Solver):
         super().__init__(field)
 
     def solve_field(self):
-        """Реализация алгоритма wave front."""
-        queue = deque()  # Очередь для клеток, которые нужно обработать
-        queue.append(self.start)  # Начинаем с начальной клетки
-        distances = {self.start: 0}  # Словарь для хранения расстояний от старта
-        visited = []  # Список для хранения посещенных клеток
+        """
+        Решает лабиринт с помощью алгоритма wave front, работает как BFS.
 
+        Queue используется для хранения ячеек, которые необходимо посетить
+        следующими. Ячейки, которые уже были посещены, не помещаются в queue.
+        Расстояния от старта до каждой ячейки хранятся в словаре.
+
+        :return: Длина кратчайшего пути от старта до финиша.
+        """
+        queue = deque()
+        queue.append(self.start)
+        distances = {self.start: 0}
+        visited = []
         while queue:
-            current_cell = queue.popleft()  # Вытаскиваем первую клетку из очереди
-
-            if current_cell == self.finish:  # Если дошли до цели — возвращаем расстояние
+            current_cell = queue.popleft()
+            if current_cell == self.finish:
                 return distances[current_cell]
-
-            if current_cell in visited:  # Пропускаем уже посещенные клетки
+            if current_cell in visited:
                 continue
-
             visited.append(current_cell)
-            current_cell.is_this_the_way = True  # Помечаем, что эта клетка входит в найденный путь
-
-            # Проходим по всем соседям текущей клетки
+            current_cell.is_this_the_way = True
             for neighbour in current_cell.neighbours:
-                if not neighbour.is_visited or neighbour in visited:  # Пропускаем посещенные и непроходимые клетки
+                if not neighbour.is_visited or neighbour in visited:
                     continue
-
-                # Если сосед еще не был посещен
                 if neighbour not in distances:
-                    distances[neighbour] = distances[current_cell] + self.weights[neighbour.road_quality]  # Обновляем расстояние
-                    queue.append(neighbour)  # Добавляем соседа в очередь для дальнейшего рассмотрения
-        # Если мы не нашли пути до финиша
+                    distances[neighbour] = distances[current_cell] + self.weights[neighbour.road_quality]
+                    queue.append(neighbour)
         return float('inf')

@@ -49,24 +49,24 @@ class Cell:
             case 'road':
                 match self.road_quality:
                     case 'start':
-                        return "\33[32m" + 'S' + "\033[0m" # 32 - green
+                        return "\33[32m" + 'S' + "\033[0m"  # 32 - green
                     case 'finish':
-                        return "\33[32m" + 'F' + "\033[0m" # 32 - green
+                        return "\33[32m" + 'F' + "\033[0m"  # 32 - green
                     case 'good':
                         if self.is_this_the_way:
-                            return "\33[34m" + '$' + "\033[0m" # 34 - blue
+                            return "\33[34m" + '$' + "\033[0m"  # 34 - blue
                         if self.is_visited:
-                            return "\33[35m" + '$' + "\033[0m" # 35 - magenta
+                            return "\33[35m" + '$' + "\033[0m"  # 35 - magenta
                         return '$'
                     case 'bad':
                         if self.is_this_the_way:
-                            return "\33[34m" + '^' + "\033[0m" # 34 - blue
+                            return "\33[34m" + '^' + "\033[0m"  # 34 - blue
                         if self.is_visited:
-                            return "\33[35m" + '^' + "\033[0m" # 35 - magenta
+                            return "\33[35m" + '^' + "\033[0m"  # 35 - magenta
                         return '^'
                     case 'normal':
                         if self.is_this_the_way:
-                            return "\33[34m" + '*' + "\033[0m" # 34 - blue
+                            return "\33[34m" + '*' + "\033[0m"  # 34 - blue
                         if self.is_visited:
-                            return "\33[35m" + '*' + "\033[0m" # 35 - magenta
+                            return "\33[35m" + '*' + "\033[0m"  # 35 - magenta
                         return '*'
