@@ -1,12 +1,13 @@
 import heapq
 
+from src.field import Field
 from src.solver import Solver
 
 
 class DijkstraSolver(Solver):
     """Класс для решения с помощью алгоритма Дейкстры."""
 
-    def __init__(self, field: "Field"):
+    def __init__(self, field: Field):
         super().__init__(field)
 
     def solve_field(self) -> float:

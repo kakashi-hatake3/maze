@@ -1,7 +1,10 @@
+from src.field import Field
+
+
 class Solver:
     """Класс для решения лабиринта."""
 
-    def __init__(self, field: "Field"):
+    def __init__(self, field: Field):
         self.field = field
         self.start = field.start
         self.finish = field.finish

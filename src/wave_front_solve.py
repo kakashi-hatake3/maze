@@ -1,11 +1,13 @@
 from collections import deque
+
+from src.field import Field
 from src.solver import Solver
 
 
 class WaveFrontSolver(Solver):
     """Класс для решения лабиринта с помощью алгоритма wall follower."""
 
-    def __init__(self, field: "Field"):
+    def __init__(self, field: Field):
         super().__init__(field)
 
     def solve_field(self):
