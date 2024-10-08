@@ -1,5 +1,29 @@
 class Cell:
-    """Класс ячейки."""
+    """Класс ячейки.
+
+    :param index: индекс ячейки в матрице
+    :type index: int
+    :param is_finish: флаг, проверяющий ячейку является ли она финишной
+    :type is_finish: bool
+    :param is_start: флаг, проверяющий ячейку является ли она стартной
+    :type is_start: bool
+    :param is_this_the_way: флаг, проверяющий ячейку является ли она в пути
+    :type is_this_the_way: bool
+    :param name: имя ячейки
+    :type name: str
+    :param road_quality: качество дороги
+    :type road_quality: str
+    :param is_visited: флаг, проверяющий ячейку является ли она посещенной
+    :type is_visited: bool
+    :param is_external: флаг, проверяющий ячейку является ли она внешней
+    :type is_external: bool
+    :param neighbours: список соседних ячейок
+    :type neighbours: list
+    :param external_side: список сторон, которые являются внешними
+    :type external_side: list
+    :param cell_neighbours_status: список статусов соседей
+    :type cell_neighbours_status: list
+    """
 
     def __init__(self, index: int):
         self.index = index

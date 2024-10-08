@@ -4,7 +4,13 @@ from src.cell import Cell
 
 
 class Field:
-    """Класс-контейнер для всех ячеек на поле."""
+    """Класс-контейнер для всех ячеек в лабиринте.
+
+    :param width: Ширина лабиринта.
+    :param height: Высота лабиринта.
+    :param start_coord: Координаты старта.
+    :param finish_coord: Координаты финиша.
+    """
 
     def __init__(
         self,
@@ -24,10 +30,10 @@ class Field:
         self.start, self.finish = self.set_start_and_finish()
         self.initialize_neighbours()
 
-    def generate_field(self):
+    def generate_field(self) -> None:
         pass
 
-    def add_neighbours(self, cell: Cell):
+    def add_neighbours(self, cell: Cell) -> None:
         """Добавляет соседей ячейки."""
         available_sides = ["down", "up", "right", "left"]
         if cell.is_external:
@@ -52,7 +58,7 @@ class Field:
                 case "left":
                     cell.neighbours.append(self.matrix[cell.index - 1])
 
-    def initialize_neighbours(self):
+    def initialize_neighbours(self) -> None:
         """Инициализирует соседей для всех ячеек после создания матрицы."""
         for cell in self.matrix:
             self.add_neighbours(cell)

@@ -10,7 +10,7 @@ class WaveFrontSolver(Solver):
     def __init__(self, field: Field):
         super().__init__(field)
 
-    def solve_field(self):
+    def solve_field(self) -> float:
         """
         Решает лабиринт с помощью алгоритма wave front, работает как BFS.
 
