@@ -3,13 +3,9 @@ import os
 import platform
 from time import sleep
 
-from src.dijkstra_solve import DijkstraSolver
-from src.growing_tree_generate import GrowingTreeField
 from src.main_menu import MainMenu
-from src.menu import Menu
+from src.main_print import MainPrint
 from src.menu_choose import MenuChoose
-from src.recursive_backtracker_generate import RecursiveBacktrackerField
-from src.wave_front_solve import WaveFrontSolver
 
 logging.basicConfig()
 logging.getLogger().setLevel(logging.INFO)
@@ -39,38 +35,10 @@ def main() -> None:
 
                 case "Печать":
                     os.system('cls')
-                    match menu.generate:
-                        case "Growing Tree":
-                            menu.field = GrowingTreeField(
-                                menu.width,
-                                menu.height,
-                                menu.start,
-                                menu.finish
-                            )
-                        case "Recursive Backtracker":
-                            menu.field = RecursiveBacktrackerField(
-                                menu.width,
-                                menu.height,
-                                menu.start,
-                                menu.finish
-                            )
-                    menu.field.generate_field()
-                    print(menu.field)
-
-                    solver = None
-
-                    match menu.solve:
-                        case "Dijkstra":
-                            solver = DijkstraSolver(menu.field)
-                        case "Wave Front":
-                            solver = WaveFrontSolver(menu.field)
-                    count_of_steps = solver.solve_field()
-                    if count_of_steps != float('inf'):
-                        print('Длина пути: ' + str(count_of_steps))
-                    else:
-                        print('Путь не существует')
-                    print(menu.field)
-
+                    main_print = MainPrint(menu)
+                    print(main_print.generate_field())
+                    print(main_print.solve_field())
+                    print(main_print.print_field())
                     sleep(5)
 
                 case "Выход":
