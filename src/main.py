@@ -7,6 +7,7 @@ from src.dijkstra_solve import DijkstraSolver
 from src.growing_tree_generate import GrowingTreeField
 from src.main_menu import MainMenu
 from src.menu import Menu
+from src.menu_choose import MenuChoose
 from src.recursive_backtracker_generate import RecursiveBacktrackerField
 from src.wave_front_solve import WaveFrontSolver
 
@@ -18,57 +19,23 @@ logger = logging.getLogger(__name__)
 def main() -> None:
     logger.info(platform.python_version())
     menu = MainMenu()
+    menu_choose = MenuChoose()
     while not menu.exit:
         menu.print_menu()
         if menu.handle_key() == 'enter' and menu.exit is False:
             menu_selected_index = menu.options[menu.selected_index]
             match menu_selected_index:
                 case "Выбрать алгоритм генерации":
-                    generate_menu = Menu()
-                    generate_menu.options = ["Growing Tree", "Recursive Backtracker", "Выход"]
-                    while not generate_menu.exit:
-                        generate_menu.print_menu()
-                        if generate_menu.handle_key() == 'enter' and generate_menu.exit is False:
-                            selected_item = generate_menu.options[generate_menu.selected_index]
-                            if selected_item != 'Выход':
-                                menu.generate = selected_item
-                            generate_menu.exit = True
+                    menu.generate = menu_choose.choose_generate()
 
                 case "Выбрать алгоритм решения":
-                    solve_menu = Menu()
-                    solve_menu.options = ["Dijkstra", "Wave Front", "Выход"]
-                    while not solve_menu.exit:
-                        solve_menu.print_menu()
-                        if solve_menu.handle_key() == 'enter' and solve_menu.exit is False:
-                            selected_item = solve_menu.options[solve_menu.selected_index]
-                            if selected_item != 'Выход':
-                                menu.solve = selected_item
-                            solve_menu.exit = True
+                    menu.solve = menu_choose.choose_solve()
 
                 case "Ввести длину и ширину лабиринта":
-                    os.system('cls')
-                    try:
-                        menu.width = int(input("Длина лабиринта: "))
-                        menu.height = int(input("Ширина лабиринта: "))
-                    except ValueError:
-                        print("Некорректные данные")
-                        sleep(0.1)
-                        continue
+                    menu.width, menu.height = menu_choose.choose_width_and_height()
 
                 case "Ввести координаты старта и финиша":
-                    os.system('cls')
-                    try:
-                        start_x = int(input("X координата старта: "))
-                        start_y = int(input("Y координата старта: "))
-                        finish_x = int(input("X координата финиша: "))
-                        finish_y = int(input("Y координата финиша: "))
-                    except ValueError:
-                        print("Некорректные данные")
-                        sleep(0.1)
-                        continue
-                    else:
-                        menu.start = (start_x, start_y)
-                        menu.finish = (finish_x, finish_y)
+                    menu.start, menu.finish = menu_choose.choose_start_and_finish()
 
                 case "Печать":
                     os.system('cls')
