@@ -50,7 +50,7 @@ def test_choose_width_and_height_positive(menu_choose, mocker):
     assert menu_choose.choose_width_and_height() == (10, 15)
 
 
-def test_choose_width_and_height_negative(capfd, menu_choose, mocker):
+def test_choose_width_and_height_negative(menu_choose, mocker):
     mocker.patch('os.system')
     mocker.patch('builtins.input', side_effect=['asdad', 10, 15])
     assert menu_choose.choose_width_and_height() == (10, 15)
