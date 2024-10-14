@@ -26,9 +26,31 @@ class Field:
         if self.width < 2 and self.height < 2:
             print("Минимум может быть 2 ячейки")
             exit()
+        self.pretended_neighbours = []
+        self.current_cell: Cell = Cell(0)
         self.matrix = [Cell(i) for i in range(width * height)]
         self.start, self.finish = self.set_start_and_finish()
         self.initialize_neighbours()
+
+    def setup_current_cell(self) -> None:
+        """Ставит параметры для текущей ячейки дороги."""
+        self.current_cell.is_visited = True
+        if self.current_cell != self.start and self.current_cell != self.finish:
+            self.current_cell.name = "road"
+            self.current_cell.road_quality = random.choice(["good", "bad", "normal"])
+
+    def add_pretended_neighbours(self) -> None:
+        """Добавляет новых возможных соседей."""
+        for neighbour in self.current_cell.neighbours:
+            neighbour.cell_neighbours_status = [
+                c.is_visited for c in neighbour.neighbours
+            ]
+            if (
+                not neighbour.is_visited
+                and neighbour.cell_neighbours_status.count(True) < 2
+                and neighbour not in self.pretended_neighbours
+            ):
+                self.pretended_neighbours.append(neighbour)
 
     def generate_field(self) -> None:
         pass
