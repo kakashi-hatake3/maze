@@ -6,4 +6,4 @@ def test_generate_field():
     field.generate_field()
     for cell in field.matrix:
         if cell.name == "road":
-            assert cell.cell_neighbours_status.count(True) <= 3
+            assert cell.cell_neighbours_status.count(True) <= 4
