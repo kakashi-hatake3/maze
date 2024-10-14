@@ -34,6 +34,7 @@ class Cell:
         self.road_quality: str = "normal"
         self.is_visited: bool = False
         self.is_external: bool = False
+        self.available_sides_for_neighbours = ["down", "up", "right", "left"]
         self.neighbours = []
         self.external_side = []
         self.cell_neighbours_status = []
