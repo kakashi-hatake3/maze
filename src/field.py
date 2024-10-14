@@ -55,9 +55,8 @@ class Field:
     def generate_field(self) -> None:
         pass
 
-    def add_neighbours(self, cell: Cell) -> None:
-        """Добавляет соседей ячейки."""
-        available_sides = ["down", "up", "right", "left"]
+    def initialize_available_sides_for_neighbours(self, cell: Cell) -> None:
+        """Определяет в каких сторонах от клетки мб соседи."""
         if cell.is_external:
             if cell.index < self.width:
                 cell.external_side.append("up")
@@ -68,8 +67,12 @@ class Field:
             if cell.index % self.width == 0:
                 cell.external_side.append("left")
             for i in cell.external_side:
-                available_sides.remove(i)
-        for side in available_sides:
+                cell.available_sides_for_neighbours.remove(i)
+
+    def add_neighbours(self, cell: Cell) -> None:
+        """Добавляет соседей ячейки."""
+        self.initialize_available_sides_for_neighbours(cell)
+        for side in cell.available_sides_for_neighbours:
             match side:
                 case "down":
                     cell.neighbours.append(self.matrix[cell.index + self.width])
