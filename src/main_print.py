@@ -13,17 +13,11 @@ class MainPrint:
         match self.menu.generate:
             case "Growing Tree":
                 self.menu.field = GrowingTreeField(
-                    self.menu.width,
-                    self.menu.height,
-                    self.menu.start,
-                    self.menu.finish
+                    self.menu.width, self.menu.height, self.menu.start, self.menu.finish
                 )
             case "Recursive Backtracker":
                 self.menu.field = RecursiveBacktrackerField(
-                    self.menu.width,
-                    self.menu.height,
-                    self.menu.start,
-                    self.menu.finish
+                    self.menu.width, self.menu.height, self.menu.start, self.menu.finish
                 )
         self.menu.field.generate_field()
         return self.print_field()
@@ -36,10 +30,10 @@ class MainPrint:
             case "Wave Front":
                 solver = WaveFrontSolver(self.menu.field)
         count_of_steps = solver.solve_field()
-        if count_of_steps != float('inf'):
-            return 'Длина пути: ' + str(count_of_steps)
+        if count_of_steps != float("inf"):
+            return "Длина пути: " + str(count_of_steps)
         else:
-            return 'Путь не существует'
-    
+            return "Путь не существует"
+
     def print_field(self):
-       return self.menu.field
+        return self.menu.field

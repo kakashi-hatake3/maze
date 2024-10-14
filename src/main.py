@@ -18,7 +18,7 @@ def main() -> None:
     menu_choose = MenuChoose()
     while not menu.exit:
         menu.print_menu()
-        if menu.handle_key() == 'enter' and menu.exit is False:
+        if menu.handle_key() == "enter" and menu.exit is False:
             menu_selected_index = menu.options[menu.selected_index]
             match menu_selected_index:
                 case "Выбрать алгоритм генерации":
@@ -34,7 +34,7 @@ def main() -> None:
                     menu.start, menu.finish = menu_choose.choose_start_and_finish()
 
                 case "Печать":
-                    os.system('cls')
+                    os.system("cls")
                     main_print = MainPrint(menu)
                     print(main_print.generate_field())
                     print(main_print.solve_field())
