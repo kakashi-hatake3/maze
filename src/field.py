@@ -1,6 +1,7 @@
 import random
 
 from src.cell import Cell
+from src.enums import RoadQualityStatus, CellName, ExternalSides
 
 
 class Field:
@@ -36,8 +37,14 @@ class Field:
         """Ставит параметры для текущей ячейки дороги."""
         self.current_cell.is_visited = True
         if self.current_cell != self.start and self.current_cell != self.finish:
-            self.current_cell.name = "road"
-            self.current_cell.road_quality = random.choice(["good", "bad", "normal"])
+            self.current_cell.name = CellName.road.value
+            self.current_cell.road_quality = random.choice(
+                [
+                    RoadQualityStatus.good.value,
+                    RoadQualityStatus.bad.value,
+                    RoadQualityStatus.normal.value
+                ]
+            )
 
     def add_pretended_neighbours(self) -> None:
         """Добавляет новых возможных соседей."""
@@ -59,13 +66,13 @@ class Field:
         """Определяет в каких сторонах от клетки мб соседи."""
         if cell.is_external:
             if cell.index < self.width:
-                cell.external_side.append("up")
+                cell.external_side.append(ExternalSides.up)
             if cell.index >= self.width * (self.height - 1):
-                cell.external_side.append("down")
+                cell.external_side.append(ExternalSides.down)
             if cell.index % self.width == self.width - 1:
-                cell.external_side.append("right")
+                cell.external_side.append(ExternalSides.right)
             if cell.index % self.width == 0:
-                cell.external_side.append("left")
+                cell.external_side.append(ExternalSides.left)
             for i in cell.external_side:
                 cell.available_sides_for_neighbours.remove(i)
 
@@ -74,13 +81,13 @@ class Field:
         self.initialize_available_sides_for_neighbours(cell)
         for side in cell.available_sides_for_neighbours:
             match side:
-                case "down":
+                case ExternalSides.down:
                     cell.neighbours.append(self.matrix[cell.index + self.width])
-                case "up":
+                case ExternalSides.up:
                     cell.neighbours.append(self.matrix[cell.index - self.width])
-                case "right":
+                case ExternalSides.right:
                     cell.neighbours.append(self.matrix[cell.index + 1])
-                case "left":
+                case ExternalSides.left:
                     cell.neighbours.append(self.matrix[cell.index - 1])
 
     def initialize_neighbours(self) -> None:
@@ -125,11 +132,11 @@ class Field:
                     print("Старт и финиш должны быть внешними")
                     exit()
         cell_start.is_start = True
-        cell_start.name = "road"
-        cell_start.road_quality = "start"
+        cell_start.name = CellName.road.value
+        cell_start.road_quality = RoadQualityStatus.start.value
         cell_finish.is_finish = True
-        cell_finish.name = "road"
-        cell_finish.road_quality = "finish"
+        cell_finish.name = CellName.road.value
+        cell_finish.road_quality = RoadQualityStatus.finish.value
         return cell_start, cell_finish
 
     def __str__(self):

@@ -1,5 +1,7 @@
 import os
 
+from src.enums import MenuKeys
+
 
 class Menu:
     """
@@ -44,12 +46,12 @@ class Menu:
         )
 
         match key:
-            case "":
-                return "enter"
-            case "w":
+            case MenuKeys.choose.value:
+                return MenuKeys.enter.value
+            case MenuKeys.up.value:
                 self.selected_index = (self.selected_index - 1) % len(self.options)
-            case "s":
+            case MenuKeys.down.value:
                 self.selected_index = (self.selected_index + 1) % len(self.options)
-            case "e":
+            case MenuKeys.escape.value:
                 self.exit = True
         return None
